@@ -6,7 +6,7 @@
 /*   By: dmarijan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:38:27 by dmarijan          #+#    #+#             */
-/*   Updated: 2025/01/02 13:44:58 by dmarijan         ###   ########.fr       */
+/*   Updated: 2025/01/02 14:03:27 by dmarijan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 #include "Contact.hpp"
 
 //add
-
-
-
 static bool ft_isspace(char ch)
 {
     return std::isspace(static_cast<unsigned char>(ch));
@@ -85,6 +82,8 @@ static void	ft_addition(Phonebook *Pbook)
 
 //search
 
+//cuts the string if its longer than 9 characters and replaces at the tenth character
+//with a "."
 static std::string check_len(std::string str)
 {
 	std::string tmp = "          ";
@@ -113,21 +112,22 @@ static void print_data(Contact contact)
 	std::cout << "Darkest Secret:		" << contact.getSecret() << std::endl;
 }
 
-//search function lol
+//actual search function lol
 static void	ft_fbi(Phonebook *Pbook)
 {
 	int i = 0;
 	int j = 1;
 	int c = 0;
-	std::string	input;
+	std::string	input = "";
 	Contact	*temp = (*Pbook).getPhonebook();
 
-	if (Pbook->getlen() == 0)
+	if ((*Pbook).getlen() == 0)
 	{
 		std::cout << "Phonebook is empty." << std::endl;
 		return ;
 	}
 	std::cout << " Index    | F.Name   | L.Name   | Nickname " << std::endl;
+	//loops contact list and prints all the info
 	while (i < (*Pbook).getlen())
 	{
 		c = 0;
