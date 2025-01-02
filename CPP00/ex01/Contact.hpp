@@ -6,7 +6,7 @@
 /*   By: dmarijan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:00:06 by dmarijan          #+#    #+#             */
-/*   Updated: 2024/12/23 16:34:07 by dmarijan         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:08:10 by dmarijan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ class	Contact
 		std::string	nickName;
 		std::string	nbr;
 		std::string	secret;
+		int			i;
 	public:
 		Contact(std::string firstName, std::string lastName, std::string nickName, std::string nbr, std::string secret);
 		Contact();
@@ -32,6 +33,8 @@ class	Contact
 		std::string	getnName(void);
 		std::string	getNbr(void);
 		std::string	getSecret(void);
+		int			getid(void);
+		void		setindex(int index);
 };
 
 #endif
