@@ -6,7 +6,7 @@
 /*   By: dmarijan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 13:14:24 by dmarijan          #+#    #+#             */
-/*   Updated: 2025/01/04 15:33:02 by dmarijan         ###   ########.fr       */
+/*   Updated: 2025/01/06 17:26:20 by dmarijan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,22 @@
 
 int main(void)
 {
-	Zombie zombrained("Pol");
-	Zombie zombotwo("Zombman");
+	int	i;
+	Zombie	*horde;
+	Zombie 	zombrained("Pol");
+	Zombie 	zombotwo("Zombman");
 
 	zombrained.announce();
 	randomChump("Chungus");
-	zombotwo.announce();	
+	zombotwo.announce();
 
+	horde = zombieHorde(5, "MORON");
+	for (i=0; i < 5; i++)
+	{
+		std::cout << i << std::endl;
+		horde[i].announce();
+	}
+	delete[] horde;
 	std::cout << std::endl;
 
 	return (0);
