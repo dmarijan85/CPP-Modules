@@ -6,12 +6,13 @@
 /*   By: dmarijan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 13:14:24 by dmarijan          #+#    #+#             */
-/*   Updated: 2025/01/04 15:33:02 by dmarijan         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:15:22 by dmarijan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
+/*
 int main(void)
 {
 	Zombie zombrained("Pol");
@@ -25,8 +26,7 @@ int main(void)
 
 	return (0);
 }
-
-/*
+*/
 int main(void)
 {
 	Zombie zombrained("Ted");
@@ -44,4 +44,4 @@ int main(void)
 	std::cout << std::endl;
 
 	return (0);
-}*/
+}
