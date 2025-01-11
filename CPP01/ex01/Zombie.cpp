@@ -6,11 +6,25 @@
 /*   By: dmarijan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 13:07:59 by dmarijan          #+#    #+#             */
-/*   Updated: 2025/01/06 17:22:33 by dmarijan         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:34:50 by dmarijan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
+
+Zombie *newZombie(std::string name)
+{
+	Zombie	*zomber = new Zombie(name);
+
+	return (zomber);
+}
+
+void	randomChump(std::string name)
+{
+	Zombie zombaba(name);
+
+	zombaba.announce();
+}
 
 void	Zombie::setName(std::string name)
 {

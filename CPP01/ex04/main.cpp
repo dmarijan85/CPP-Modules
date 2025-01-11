@@ -6,7 +6,7 @@
 /*   By: dmarijan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:52:30 by dmarijan          #+#    #+#             */
-/*   Updated: 2025/01/11 14:09:50 by dmarijan         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:40:01 by dmarijan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@ int		ihateerrors(int argc, char **argv)
 {
 	std::ifstream	file;
 	std::ofstream	file2;
-	std::string		outfile = argv[1];
-	outfile += ".replace";
 
-	if (argc != 4)
+	if (argc != 4 )
 	{
 		std::cout << "Loser parameters! Should be: './loser filename str1 str2'" << std::endl;
+		return (1);
+	}
+	if (!(argv[2]) || !(argv[3]) || !(argv[2][0]) || !(argv[3][0]))
+	{
+		std::cout << "We don't allow empty strings in this household. Please reconsider." << std::endl;
 		return (1);
 	}
 	file.open(argv[1], std::ifstream::in);
@@ -36,17 +39,16 @@ int		ihateerrors(int argc, char **argv)
 		return (1);
 	}
 	file.close();
+	
+	std::string		outfile = argv[1];
+	outfile += ".replace";
+	
 	file2.open(outfile.c_str(), std::ofstream::out);
 	if (!(file2.is_open()))
 	{
 		std::cout << "File " << argv[1] << \
 		" doesn't have a low taper fade (doesn't exist? / check perms)." << std::endl;
 		file2.close();
-		return (1);
-	}
-	if (!(argv[2]) || !(argv[3]) || !(argv[2][0]) || !(argv[3][0]))
-	{
-		std::cout << "We don't allow empty strings in this household. Please reconsider." << std::endl;
 		return (1);
 	}
 	return (0);

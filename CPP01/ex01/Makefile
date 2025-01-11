@@ -6,13 +6,13 @@
 #    By: dmarijan <dmarijan@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 11:33:35 by dmarijan          #+#    #+#              #
-#    Updated: 2025/01/06 17:09:30 by dmarijan         ###   ########.fr        #
+#    Updated: 2025/01/11 14:34:00 by dmarijan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = zombos
 
-SRC = main.cpp Zombie.cpp newZombie.cpp zombieHorde.cpp
+SRC = main.cpp Zombie.cpp zombieHorde.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

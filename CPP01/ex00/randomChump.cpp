@@ -6,7 +6,7 @@
 /*   By: dmarijan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 13:11:04 by dmarijan          #+#    #+#             */
-/*   Updated: 2025/01/04 13:14:06 by dmarijan         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:36:00 by dmarijan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	randomChump(std::string name)
 {
-	Zombie	chump;
+	Zombie zombaba(name);
 
-	chump.name = name;
-	announce();
+	zombaba.announce();
 }
