@@ -6,7 +6,7 @@
 /*   By: dmarijan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 13:52:30 by dmarijan          #+#    #+#             */
-/*   Updated: 2025/01/10 17:19:50 by dmarijan         ###   ########.fr       */
+/*   Updated: 2025/01/11 14:09:50 by dmarijan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,6 @@ char	lastletter(char	*str)
 	return (str[i-1]);
 }
 
-int		wordmatches(std::string baguette, int i, char *str)
-{
-	int	j = 0;
-
-	while (baguette[i] == str[j])
-	{
-		i++;
-		j++;
-	}
-	if (!str[j])
-		return (1);
-	return (0);
-}
-
 int		ft_strlen(char *str)
 {
 	int	i = 0;
@@ -82,6 +68,17 @@ int		ft_strlen(char *str)
 	while (str[i])
 		i++;
 	return (i);
+}
+
+int		wordmatches(const char *baguette, char *str)
+{
+	int	i = 0;
+
+	while (baguette[i] == str[i])
+		i++;
+	if (i == ft_strlen(str) || i-1 == ft_strlen(str))
+		return (1);
+	return (0);
 }
 
 void	loserfunction(char **argv)
@@ -105,7 +102,7 @@ void	loserfunction(char **argv)
 		part2 = "";
 		for (i=0;part1[i];i++)
 		{
-			if (wordmatches(part1, i, argv[2]))
+			if (wordmatches(part1.c_str() + i, argv[2]))
 			{
 				temp = part1.substr(0, i);
 				part2 = part1.substr(i + ft_strlen(argv[2]), baguette.length());
