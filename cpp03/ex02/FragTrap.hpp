@@ -4,7 +4,7 @@
 # include "ClapTrap.hpp"
 # include <iostream>
 
-class	FlagTrap : public ClapTrap
+class	FragTrap : public ClapTrap
 {
 private:
 	static const int hp = 100;
@@ -12,13 +12,13 @@ private:
     static const int atk = 30;
 public:
 	//constructors and destructors :3
-	FlagTrap(void);
-	FlagTrap(std::string name);
-	FlagTrap(const FlagTrap &cpy);
-	~FlagTrap(void);
+	FragTrap(void);
+	FragTrap(std::string name);
+	FragTrap(const FragTrap &cpy);
+	~FragTrap(void);
 
 	//overloads
-	FlagTrap & operator = (const FlagTrap &src);
+	FragTrap & operator = (const FragTrap &src);
 	
 	//member functions
 	void	highFivesGuys(void);

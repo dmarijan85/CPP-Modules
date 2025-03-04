@@ -1,28 +1,28 @@
 #include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
-#include "FlagTrap.hpp"
+#include "FragTrap.hpp"
 
 int	main(void)
 {
-	FlagTrap flagTrapDefault;
+	FragTrap fragTrapDefault;
     std::cout << "Default Constructor Test:\n";
-    std::cout << "Name: " << flagTrapDefault.getName() << std::endl;
-    std::cout << "Hit Points: " << flagTrapDefault.getHp() << std::endl;
-    std::cout << "Energy Points: " << flagTrapDefault.getEnergy() << std::endl;
-    std::cout << "Attack Damage: " << flagTrapDefault.getAtk() << std::endl;
-    flagTrapDefault.attack("DefaultTarget");  // Testing attack member function
+    std::cout << "Name: " << fragTrapDefault.getName() << std::endl;
+    std::cout << "Hit Points: " << fragTrapDefault.getHp() << std::endl;
+    std::cout << "Energy Points: " << fragTrapDefault.getEnergy() << std::endl;
+    std::cout << "Attack Damage: " << fragTrapDefault.getAtk() << std::endl;
+    fragTrapDefault.attack("DefaultTarget");  // Testing attack member function
 
-    FlagTrap customFlagTrap("CustomScavTrap");
+    FragTrap customFragTrap("CustomScavTrap");
     std::cout << "Parameterized Constructor Test:\n";
-    std::cout << "Name: " << customFlagTrap.getName() << std::endl;
-    std::cout << "Hit Points: " << customFlagTrap.getHp() << std::endl;
-    std::cout << "Energy Points: " << customFlagTrap.getEnergy() << std::endl;
-    std::cout << "Attack Damage: " << customFlagTrap.getAtk() << std::endl;
-    customFlagTrap.attack("CustomTarget");
+    std::cout << "Name: " << customFragTrap.getName() << std::endl;
+    std::cout << "Hit Points: " << customFragTrap.getHp() << std::endl;
+    std::cout << "Energy Points: " << customFragTrap.getEnergy() << std::endl;
+    std::cout << "Attack Damage: " << customFragTrap.getAtk() << std::endl;
+    customFragTrap.attack("CustomTarget");
 
     // Test guardGate member function
     std::cout << "Calling highFivesGuys:\n";
-    customFlagTrap.highFivesGuys();
+    customFragTrap.highFivesGuys();
     std::cout << "=========================\n";
 
 	return (42);
