@@ -1,8 +1,8 @@
-NAME =  ClapTrap
+NAME = FlagTrap
 
-SRC = main.cpp ClapTrap.cpp
+SRC = main.cpp ClapTrap.cpp ScavTrap.cpp FlagTrap.cpp
 
-HEADERS = ClapTrap.hpp
+HEADERS = ClapTrap.hpp ScavTrap.hpp FlagTrap.hpp
 
 OBJ = $(SRC:.cpp=.o)
 

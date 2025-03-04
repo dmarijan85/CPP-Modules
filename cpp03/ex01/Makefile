@@ -2,7 +2,7 @@ NAME = ScavTrap
 
 SRC = main.cpp ClapTrap.cpp ScavTrap.cpp
 
-HEADERS = ClapTrap.hpp
+HEADERS = ClapTrap.hpp ScavTrap.hpp
 
 OBJ = $(SRC:.cpp=.o)
 
@@ -10,9 +10,9 @@ COMPILE = c++ -Wall -Werror -Wextra -std=c++98 #-g -fsanitize=address
 
 REMOVE = rm -f
 
-all: $(NAME) $(HEADERS)
+all: $(NAME)
 
-$(NAME): Makefile $(OBJ)
+$(NAME): Makefile $(OBJ) $(HEADERS)
 	@$(COMPILE) $(SRC) -o $(NAME)
 
 clean:
