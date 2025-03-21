@@ -6,13 +6,13 @@
 #    By: dmarijan <dmarijan@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 11:33:35 by dmarijan          #+#    #+#              #
-#    Updated: 2025/03/13 13:14:04 by dmarijan         ###   LAUSANNE.ch        #
+#    Updated: 2025/03/21 12:36:34 by dmarijan         ###   LAUSANNE.ch        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = animal
 
-SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp
+SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp WrongCat.cpp WrongAnimal.cpp
 
 HEADERS = Animal.hpp Dog.hpp Cat.hpp
 
