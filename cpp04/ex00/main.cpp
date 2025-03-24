@@ -15,7 +15,7 @@ int main()
 	i->makeSound(); //will output the cat sound!
 	meta->makeSound();
 
-	std::cout << "Totally not a cat.. " << k->getType() << std::endl;
+	std::cout << "Totally not a cat: " << k->getType() << std::endl;
 	k->makeSound();
 
 	delete(meta);
