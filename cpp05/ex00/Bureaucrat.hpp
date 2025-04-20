@@ -1,8 +1,8 @@
 #include <string>
 #include "iostream"
 
-#define MAX_GRADE = 1
-#define MIN_GRADE = 150
+#define MAX_GRADE 1
+#define MIN_GRADE 150
 
 class Bureaucrat
 {
@@ -23,7 +23,6 @@ class Bureaucrat
         void        incrementGrade(void);
         void        decrementGrade(void);
 
-        //???
         class GradeTooHighException : public std::exception
 		{
 			public:

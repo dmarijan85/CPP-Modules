@@ -13,7 +13,7 @@ REMOVE = rm -f
 all: $(NAME)
 
 $(NAME): Makefile $(OBJ) $(HEADERS)
-	@$(COMPILE) $(SRC) -o $(NAME)
+	@$(COMPILE) $(OBJ) -o $(NAME)
 
 clean:
 	$(REMOVE) $(OBJ)

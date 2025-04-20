@@ -1,6 +1,26 @@
 #include "Bureaucrat.hpp"
 #include <ostream>
 
+Bureaucrat::~Bureaucrat()
+{
+    return ;
+}
+
+Bureaucrat::Bureaucrat()
+{
+    _grade = 0;
+}
+
+Bureaucrat::Bureaucrat(std::string name) : _name(name)
+{
+    _grade = 0;
+}
+
+Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
+{
+    _grade = grade;
+}
+
 std::string Bureaucrat::getName(void) const
 {
     return _name;
@@ -27,14 +47,24 @@ Bureaucrat & Bureaucrat::operator = (const Bureaucrat &other)
 
 void    Bureaucrat::incrementGrade(void)
 {
-    if (_grade <= 1)
-        throw(_grade);
+    if (_grade <= MAX_GRADE)
+        throw(GradeTooHighException());
     _grade--;
 }
 
 void    Bureaucrat::decrementGrade(void)
 {
-    if (_grade >= 150)
-        throw(_grade);
+    if (_grade >= MIN_GRADE)
+        throw(GradeTooLowException());
     _grade++;
+}
+
+const char *Bureaucrat::GradeTooHighException::what(void) const throw()
+{
+	return ("Grade too high!");
+}
+
+const char *Bureaucrat::GradeTooLowException::what(void) const throw()
+{
+	return ("Grade too low!");
 }
