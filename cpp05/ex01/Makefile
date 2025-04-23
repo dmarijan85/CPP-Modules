@@ -1,8 +1,10 @@
-NAME = Forms
+NAME = Maggots
 
-SRC = Forms.cpp main.cpp
+SRC = Form.cpp Bureaucrat.cpp main.cpp
 
 OBJ = $(SRC:.cpp=.o)
+
+HEADERS = Bureaucrat.hpp Form.hpp
 
 COMPILE = c++ -Wall -Werror -Wextra -std=c++98 #-g -fsanitize=address
 
@@ -10,7 +12,7 @@ REMOVE = rm -f
 
 all: $(NAME) $(BONUS)
 
-$(NAME): Makefile $(OBJ)
+$(NAME): Makefile $(OBJ) $(HEADERS)
 	@$(COMPILE) $(OBJ) -o $(NAME)
 
 clean:
