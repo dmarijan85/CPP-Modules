@@ -1,4 +1,5 @@
 #include "ScalarConverter.hpp"
+#include <cctype>
 
 void ScalarConverter::convertToChar(double value, std::string &str)
 {
@@ -6,7 +7,9 @@ void ScalarConverter::convertToChar(double value, std::string &str)
 		&& value <= std::numeric_limits<unsigned char>::max())
 	{
 		char c(static_cast<char>(value));
-		str = (std::isprint(c)) ? (std::string("'") + c + "'") : "Non displayable";
+		str = "Non Displayable";
+		if (std::isprint(c))
+			str = (std::string("'") + c + "'");
 	}
 }
 
