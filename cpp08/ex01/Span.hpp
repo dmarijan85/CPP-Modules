@@ -23,7 +23,7 @@ class Span
         int     longestSpan(void);
 
         void    printVector(void);
-        void    addManyNumbers(int howMany);
+        void    fill_vector(unsigned int howMany);
 };
 
 #endif

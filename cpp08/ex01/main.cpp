@@ -12,7 +12,7 @@ std::cout << sp.shortestSpan() << std::endl;
 std::cout << sp.longestSpan() << std::endl;
 
 Span ft = Span(42000);
-ft.addManyNumbers(42000);
+ft.fill_vector(42000);
 std::cout << ft.shortestSpan() << std::endl;
 std::cout << ft.longestSpan() << std::endl;
 

@@ -69,15 +69,9 @@ void Span::printVector(void)
     std::cout << std::endl;
 }
 
-void Span::addManyNumbers(int howMany)
+void Span::fill_vector(unsigned int _N)
 {
-    unsigned int seed = static_cast<unsigned int>(time(0));
-    srand(seed);
-
-    for (int i = 0; i < N; i++)
-    {
-            int randomNumber = rand() % 2147483647;
-            numbers.push_back(randomNumber);
-    }
-    //printVector();
+	numbers.resize(_N);
+	for (std::vector<int>::iterator it = numbers.begin(); it != numbers.end(); ++it)
+		*it = rand();
 }

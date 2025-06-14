@@ -69,11 +69,10 @@ int main() {
     {
         std::cout << "\n=== " << "Test 3: Const iteration" << " ===\n";
 
-        const MutantStack<int> mstack = [](){
-            MutantStack<int> tmp;
-            for (int i = 0; i < 5; ++i) tmp.push(i);
-            return tmp;
-        }();
+        const MutantStack<int> mstack;
+        for (int i = 0; i < 5; ++i) {
+            const_cast<MutantStack<int>&>(mstack).push(i);  // Need const_cast because mstack is const
+        }
 
         const std::list<int> list = {0, 1, 2, 3, 4};
 
