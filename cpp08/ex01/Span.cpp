@@ -34,29 +34,33 @@ void Span::addNumber(int nbr)
     numbers.push_back(nbr);
 }
 
-int Span::shortestSpan(void)
-{
-    if (numbers.size() < 2)
-        throw std::out_of_range("Span is too short");
+long Span::shortestSpan() {
+        if (numbers.size() < 2)
+            throw std::out_of_range("Span is too short");
 
-    std::vector<int> sorted(numbers);
-    std::sort(sorted.begin(), sorted.end());
-    int minSpan = std::numeric_limits<int>::max();
-    for (std::vector<int>::iterator it = sorted.begin(); it != sorted.end() - 1; ++it)
-        minSpan = std::min(minSpan, *(it + 1) - *it);
+        // Convert to long to avoid overflow in subtraction
+        std::vector<long> sorted(numbers.begin(), numbers.end());
+        std::sort(sorted.begin(), sorted.end());
 
-    return minSpan;
-}
+        long minSpan = std::numeric_limits<long>::max();
+        for (size_t i = 0; i < sorted.size() - 1; ++i) {
+            long diff = sorted[i + 1] - sorted[i];
+            minSpan = std::min(minSpan, diff);
+        }
 
-int Span::longestSpan(void)
-{
-    if (numbers.size() < 2)
-        throw std::out_of_range("Span is too short");
+        return minSpan;
+    }
 
-    std::vector<int> sorted(numbers);
-	std::sort(sorted.begin(), sorted.end());
-	return (sorted[N - 1] - sorted[0]);
-}
+    long Span::longestSpan() {
+        if (numbers.size() < 2)
+            throw std::out_of_range("Span is too short");
+
+        // Convert to long to avoid overflow in subtraction
+        std::vector<long> sorted(numbers.begin(), numbers.end());
+        std::sort(sorted.begin(), sorted.end());
+
+        return sorted.back() - sorted.front();
+    }
 
 void Span::printVector(void)
 {

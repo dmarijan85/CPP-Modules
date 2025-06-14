@@ -19,8 +19,8 @@ class Span
 
         Span & operator = (const Span &src);
         void    addNumber(int nbr);
-        int     shortestSpan(void);
-        int     longestSpan(void);
+        long    shortestSpan(void);
+        long    longestSpan(void);
 
         void    printVector(void);
         void    fill_vector(unsigned int howMany);
