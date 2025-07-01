@@ -11,7 +11,7 @@ int main(int ac, char **av)
 	}
 	try {
 		BitcoinExchange btc;
-		//btc.execute(av[1]);
+		btc.exchange(av[1]);
 
 	} catch (std::exception &e) {
 		std::cout << e.what() << std::endl;
