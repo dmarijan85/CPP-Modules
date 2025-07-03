@@ -2,6 +2,7 @@
 #include <cctype>
 #include <csignal>
 #include <cstdio>
+#include <cstdlib>
 #include <stdexcept>
 
 RPN::RPN()
@@ -37,39 +38,57 @@ int whichToken(char c)
     return -1;
 }
 
-double RPN::calculate(void)
+double RPN::getRes(double first, double second, char opsign)
 {
- //TODO actually do the iterative method of calculation while stack.size > 1
+
+    switch (whichToken(opsign))
+    {
+        case 0:
+            return first + second;
+        case 1:
+            return first - second;
+        case 2:
+            if (second == 0)
+                throw std::runtime_error("Can't divide over zero!");
+            return first / second;
+        case 3:
+            return first * second;
+        default: //-1
+            throw std::runtime_error("Wrong operator in stack!");
+    }
+}
+
+void RPN::getNbrs(double &first, double &second)
+{
+    if (_stack.size() < 2)
+        throw std::runtime_error("Not enough numbers!");
+    second = _stack.top();
+    _stack.pop();
+    first = _stack.top();
+    _stack.pop();
 }
 
 double RPN::processRPN(const std::string &str)
 {
-    std::istringstream ss(str);
-    int turn = -1;
+    std::stringstream	ss(str);
+	std::string 		current;
 
-    while (ss.peek() != '\0' && ss.peek() != EOF)
-    {
-        char current = ss.get();
-        if (current != ' ' && !std::isdigit(current) && whichToken(current) == -1)
-            throw std::runtime_error("Invalid input!");
-        if (current == ' ' && turn == 1)
-            turn *= -1;
-        else if (current != ' ' && turn == -1)
+	while (ss >> current) {
+        if ((std::isdigit(current[0]) || whichToken(current[0]) != -1))
         {
-            turn *= -1;
-            _stack.push(current);
+            if (std::isdigit(current[0]))
+                _stack.push(std::strtod(current.c_str(), NULL));
+            else if (whichToken(current[0]) != -1)
+            {
+                double first, second;
+                getNbrs(first, second);
+                _stack.push(getRes(first, second, current[0]));
+            }
         }
         else
-            throw std::runtime_error("Invalid input!");
+            throw std::runtime_error("Unrecognised input!");
     }
-
-    //reverse the friggin thing
-    std::stack<char> tempStack;
-    while (!_stack.empty()) {
-        tempStack.push(_stack.top());
-        _stack.pop();
-    }
-    _stack = tempStack;
-
-    return (calculate());
+    if (_stack.size() != 1)
+        throw std::runtime_error("Not enough operands!");
+    return (_stack.top());
 }

@@ -8,8 +8,11 @@
 class RPN
 {
     private:
-        std::stack<char> _stack;
+        std::stack<double> _stack;
         double calculate(void);
+        void getNbrs(double &first, double &second);
+        double getRes(double first, double second, char opsign);
+
 
 
     public:
