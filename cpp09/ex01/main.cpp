@@ -6,7 +6,7 @@ void testRPN(const std::string& expression) {
     RPN calculator;
     try {
         double result = calculator.processRPN(expression);
-        std::cout << "Expression: " << expression << " = " << result << std::endl;
+        std::cout << "Expression: \"" << expression << "\" = " << result << std::endl;
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }
@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
     // Edge cases
     testRPN("42");           // 42
     testRPN("0 0 +");        // 0
-    testRPN("1 0 /");        // Should throw (division by zero)
+    testRPN("1 0 /");        // Division by zero
     testRPN("1.5 2.5 +");    // 4.0
 
     // Invalid expressions
@@ -46,7 +46,9 @@ int main(int argc, char* argv[]) {
     testRPN("1 2 3 +");      // Too many numbers
     testRPN("1 2 + 3");      // Number at the end
     testRPN("a b +");        // Invalid characters
-    testRPN("1 2 ++");       // Too many operators
+    testRPN("1 2 /*");       // Invalid operand
+    testRPN("1 2 ++");       // Invalid operand
+    testRPN("1 2 - -");      // Too many operators
     testRPN("+ 1 2");        // Operator first
     testRPN("-3 -2 *");      // Can't handle negatives
 

@@ -24,21 +24,21 @@ RPN &RPN::operator=(const class RPN &src)
     return *this;
 }
 
-int whichToken(char c)
+int whichToken(std::string c)
 {
-    if (c == '+')
+    if (c == "+")
         return 0;
-    else if (c == '-')
+    else if (c == "-")
         return 1;
-    else if (c == '/')
+    else if (c == "/")
         return 2;
-    else if (c == '*')
+    else if (c == "*")
         return 3;
 
     return -1;
 }
 
-double RPN::getRes(double first, double second, char opsign)
+double RPN::getRes(double first, double second, std::string opsign)
 {
 
     switch (whichToken(opsign))
@@ -74,15 +74,17 @@ double RPN::processRPN(const std::string &str)
 	std::string 		current;
 
 	while (ss >> current) {
-        if ((std::isdigit(current[0]) || whichToken(current[0]) != -1))
+        if ((std::isdigit(current[0]) || whichToken(current) != -1))
         {
             if (std::isdigit(current[0]))
                 _stack.push(std::strtod(current.c_str(), NULL));
-            else if (whichToken(current[0]) != -1)
+            else if (whichToken(current) != -1)
             {
+                if (_stack.size() < 2)
+                    throw std::runtime_error("Too many operands!");
                 double first, second;
                 getNbrs(first, second);
-                _stack.push(getRes(first, second, current[0]));
+                _stack.push(getRes(first, second, current));
             }
         }
         else

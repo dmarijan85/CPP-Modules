@@ -11,7 +11,7 @@ class RPN
         std::stack<double> _stack;
         double calculate(void);
         void getNbrs(double &first, double &second);
-        double getRes(double first, double second, char opsign);
+        double getRes(double first, double second, std::string opsign);
 
 
 
