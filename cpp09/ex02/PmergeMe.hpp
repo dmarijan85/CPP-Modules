@@ -12,8 +12,8 @@
 # include <math.h>
 
 
-typedef typename std::vector<unsigned int> stdVector;
-typedef typename std::deque<unsigned int> stdDeque;
+typedef typename std::vector<unsigned int> stduiVector;
+typedef typename std::deque<unsigned int> stduiDeque;
 
 class PmergeMe {
     public:
@@ -27,21 +27,23 @@ class PmergeMe {
 
 
 	private:
-		stdDeque	deq;
-		stdVector   vec;
+		stduiDeque	deq;
+		stduiVector vec;
 		float		vecTime;
 		float	    deqTime;
 
 		//alg functions
-		stdVector firstPass(stdVector &src, int &gSize);
+		stduiVector firstPass(stduiVector &src, int &gSize);
+		stduiVector secondPass(stduiVector &src, int &gSize);
+
 
         //utils
-        bool is_repeat(int n, stdVector vec);
+        bool is_repeat(int n, stduiVector vec);
         bool is_valid(std::string arg);
-        void switchGroups(int from, int to, int gSize, stdVector &src);
-        void printVector(const stdVector& vec);
+        void switchGroups(int from, int to, int gSize, stduiVector &src);
 
 
 };
 
+void printVector(const stduiVector& vec);
 #endif

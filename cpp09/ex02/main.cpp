@@ -1,7 +1,9 @@
 #include "PmergeMe.hpp"
 #include <stdexcept>
 
-int main(int ac, char **av) {
+int main(int ac, char **av)
+{
+    //return round((pow(2, k + 1) + pow(-1, k)) / 3);
     try
     {
         if (ac < 2 || ac > 10000)
