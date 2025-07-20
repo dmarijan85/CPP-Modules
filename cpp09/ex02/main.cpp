@@ -9,8 +9,7 @@ int main(int ac, char **av)
         if (ac < 2 || ac > 10000)
             throw std::runtime_error("Come on man...");
         PmergeMe    merge(&av[1]);
-        merge.sortVector();
-        //merge.sortDeque();
+        merge.sortAlg();
     }
     catch (std::runtime_error &e) {
         std::cout << "Error: " << e.what() << std::endl;

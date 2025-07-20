@@ -4,9 +4,10 @@
 #include <ostream>
 #include <stdexcept>
 
-int calcJacob(int k)
-{
-    return round((pow(2, k + 1) + pow(-1, k)) / 3);
+int calcJacob(int k) {
+    if (k == 0) return 0;
+    if (k == 1) return 1;
+    return calcJacob(k-1) + 2 * calcJacob(k-2);
 }
 
 PmergeMe::PmergeMe(char **arg) {
@@ -20,6 +21,7 @@ PmergeMe::PmergeMe(char **arg) {
 		this->deq.push_back(n);
 		this->vec.push_back(n);
 	}
+	vecComp = 0;
 }
 
 PmergeMe::PmergeMe(const PmergeMe &cpy) { *this = cpy; }
@@ -31,6 +33,8 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &cpy) {
 	this->vec = cpy.vec;
 	return *this;
 }
+
+//--------- UTILS -----------
 
 //checks whether arg is a number
 bool PmergeMe::is_valid(std::string arg)
@@ -59,175 +63,161 @@ bool PmergeMe::is_repeat(int n, stduiVector vec)
 	return std::find(vec.begin(), vec.end(), static_cast<unsigned int>(n)) != vec.end();
 }
 
-//startone and starttwo are indexes for the leftmost numbers in their respective group
-void PmergeMe::switchGroups(int startOne, int startTwo, int gSize, stduiVector &src)
+
+
+// --------- ALG FUNCTIONS ------------
+
+//sort by pairs :)
+void PmergeMe::firstPass(stduiVector &src)
 {
-    stduiVector temp(gSize);
-
-    for (int i = 0; i < gSize; i++)
-        temp[i] = src[startOne+i];
-
-    for (int i = 0; i < gSize; i++)
-        src[startOne+i] = src[startTwo+i];
-
-    for (int i = 0; i < gSize; i++)
-        src[startTwo+i] = temp[i];
-}
-
-stduiVector PmergeMe::firstPass(stduiVector &src, int &gSize)
-{
-    if (src.size() < gSize)
-        return src;
-
-    int i = 0;
-    while (i < src.size())
+    for (int i = 0; i < src.size()-1; i += 2)
     {
-        int upperOne = i+gSize-1;
-        int upperTwo = upperOne+gSize;
-        if (upperOne < src.size() && upperTwo < src.size() && src.at(upperOne) > src.at(upperTwo))
+        if (src[i] > src[i+1])
         {
-            //std::cout << "hello cro, comparing " << src.at(upperOne) << " and " << src.at(upperTwo) << std::endl;
-
-            switchGroups(i, i+gSize, gSize, src);
+            unsigned int temp = src[i];
+            src[i] = src[i+1];
+            src[i+1] = temp;
         }
-        i += gSize*2;
     }
-    gSize *= 2;
-    return (firstPass(src, gSize));
 }
 
-//grab b1 and a1, as well as all of the a groups.
-void initVecs(stduiVector &comp, stduiVector &pend, const stduiVector &src, int gSize)
-{
-    int i;
-    for (i = 0; i < gSize*2 && i < src.size(); i++)
-        comp.push_back(src[i]);
 
-    while (i < src.size() && !(i+gSize > src.size()))
+int PmergeMe::binarySearch(stduiVector &vec, int value, int searchLimit)
+{
+    int left = 0;
+    int right = searchLimit+1;
+
+    if (right >= (int)vec.size())
+        right = (int)vec.size();
+
+    while (left < right)
     {
-        if (!(i%gSize))
-        {
-            for (int start = i; i < start+gSize && i < src.size() && start+gSize <= src.size(); i++)
-                pend.push_back(src[i]);
-            for (int start = i; i < start+gSize && i < src.size() && start+gSize <= src.size(); i++)
-                comp.push_back(src[i]);
+        int mid = left + (right - left) / 2;
+
+        if (vec[mid] < value) {
+            left = mid + 1;
+        } else {
+            right = mid;
         }
-        else
-            i++;
     }
+
+    return left;
 }
 
-void grabRemainder(const stduiVector &src, stduiVector &comp)
-{
-    if (!(comp.size() <= src.size()))
-        throw std::runtime_error("Unexpected length of vectors post insertion!");
-    else
-    {
-        while (comp.size() < src.size())
-            comp.push_back(src[comp.size()]);
-    }
-}
-
-void insertGroup(stduiVector &pend, stduiVector &comp, int startPend, int startComp, int gSize)
+void merge(stduiVector &src, int left, int mid, int right)
 {
     stduiVector temp;
+    int i = left;
+    int j = mid + 1;
 
-    int i = 0;
-    while (startComp + i < comp.size())
+    while (i <= mid && j <= right)
     {
-        temp.push_back(comp[startComp+i]);
-        i++;
+        if (src[i] <= src[j])
+            temp.push_back(src[i++]);
+        else
+            temp.push_back(src[j++]);
     }
-    while (i)
-    {
-        comp.pop_back();
-        i--;
-    }
-
-    for (int i = 0; i < gSize; i++)
-        comp.push_back(pend[startPend+i]);
-    for (int i = 0; i < temp.size(); i++)
-        comp.push_back(temp[i]);
 }
 
 void removeFront(stduiVector &vec, int n)
 {
-
     if (n >= vec.size())
-    {
         vec.clear();
+    else
+    {
+        std::move(vec.begin()+n, vec.end(), vec.begin());
+        vec.resize(vec.size()-n);
+    }
+}
+
+void PmergeMe::fillNew(stduiVector &newSrc, stduiVector &main, stduiVector &pend)
+{
+    if (pend.empty()) {
+        newSrc = main;
         return;
     }
-    std::move(vec.begin() + n, vec.end(), vec.begin());
-    vec.resize(vec.size() - n);
-}
 
-void insertJacob(stduiVector &comp, stduiVector &pend, int topbound, int gSize)
-{
-    int howmany = topbound*gSize;
+    newSrc.clear();
+    newSrc.push_back(pend[0]);
+    for (size_t i = 0; i < main.size(); i++) {
+        newSrc.push_back(main[i]);
+    }
 
-    if (topbound*gSize > pend.size())
-        topbound = pend.size()/gSize;
-    while (topbound > 0)
+    std::vector<bool> inserted(pend.size(), false);
+    inserted[0] = true;
+    int insertedCount = 1;
+    int jacobIndex = 2;
+
+    while (insertedCount < (int)pend.size())
     {
-        int upperComp= gSize-1;
-        int upperPend = (topbound*gSize)-1;
+        int currentJacob = calcJacob(jacobIndex);
+        int prevJacob = calcJacob(jacobIndex - 1);
+        int maxPos;
+        if (currentJacob - 1 < pend.size())
+            maxPos = currentJacob - 1;
+        else
+            maxPos = pend.size() - 1;
 
-        while (upperComp < comp.size())
+        for (int pos = maxPos; pos >= prevJacob && pos >= 0; pos--)
         {
-            if (pend[upperPend] < comp[upperComp])
+            if (!inserted[pos])
             {
-                insertGroup(pend, comp, upperPend-gSize+1, upperComp-gSize+1, gSize);
-                break;
-            }
-            upperComp += gSize;
-        }
-        //if (i >= comp.size())
-            //insertGroup(pend, comp, upperPend - gSize, comp.size(), gSize);
-        topbound--;
-    }
+                // 1 for first pend, pos for main elements before it, insertedCount-1 for pend elements already inserted
+                int searchLimit = 1 + pos + (insertedCount - 1);
 
-    removeFront(pend, howmany);
+                if (searchLimit >= newSrc.size())
+                    searchLimit = newSrc.size() - 1;
+
+                int insertPos = binarySearch(newSrc, pend[pos], searchLimit);
+                newSrc.insert(newSrc.begin() + insertPos, pend[pos]);
+
+                inserted[pos] = true;
+                insertedCount++;
+            }
+        }
+        jacobIndex++;
+        if (jacobIndex > 20) break;
+    }
 }
 
-stduiVector PmergeMe::secondPass(stduiVector &src, int &gSize)
+void PmergeMe::mergeinsertVec(stduiVector &src)
 {
-    stduiVector comp, pend;
+    if (src.size() <= 1)
+        return;
 
-    gSize /= 2;
-    std::cout << "-----GSIZE: " << gSize << std::endl;
-    initVecs(comp, pend, src, gSize);
+    //sort by pairs
+    firstPass(src);
 
-
-    //insert method
-    int jacobTurn = 2;
-    while (!pend.empty())
+    stduiVector main, pend;
+    for (int i = 0; i < (int)src.size(); i++)
     {
-        std::cout << "turn number " << jacobTurn << std::endl;
-        std::cout << "comp: " << std::endl;
-        printVector(comp);
-        std::cout << "pend: " << std::endl;
-        printVector(pend);
-        insertJacob(comp, pend, calcJacob(jacobTurn) - calcJacob(jacobTurn-1), gSize);
-        jacobTurn++;
-        std::cout << "comp after jacobinsert: " << std::endl;
-        printVector(comp);
+        if ((i % 2))
+            main.push_back(src[i]);
+        else
+            pend.push_back(src[i]);
     }
 
-    //grabRemainder(src, comp);
+    mergeinsertVec(main);
 
-    if (gSize > 1)
-        return (secondPass(comp, gSize));
-    return comp;
+    stduiVector newSrc;
+    fillNew(newSrc, main, pend);
+
+    src = newSrc;
 }
 
 //driver function for the sort alg
-void PmergeMe::sortVector(void)
+void PmergeMe::sortAlg(void)
 {
-    int gSize = 1;
-    vec = firstPass(vec, gSize);
+    std::cout << "Vector before sort: " << std::endl;
     printVector(vec);
-    vec = secondPass(vec, gSize);
+    struct timeval start, end;
 
+	gettimeofday(&start, NULL);
+    mergeinsertVec(vec);
+	gettimeofday(&end, NULL);
+
+    std::cout << "Vector after sort: " << std::endl;
+    printVector(vec);
+    std::cout << "Time taken to sort the Vector: " << std::setprecision(5) << (end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec << "ms" << std::endl;
 
 }

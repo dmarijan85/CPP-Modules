@@ -8,6 +8,7 @@
 # include <sys/time.h>
 # include <iomanip>
 # include <algorithm>
+# include <climits>
 # include <error.h>
 # include <math.h>
 
@@ -22,7 +23,7 @@ class PmergeMe {
         ~PmergeMe();
         PmergeMe &operator=(const PmergeMe  &src);
 
-        void sortVector(void);
+        void sortAlg(void);
 
 
 
@@ -31,10 +32,15 @@ class PmergeMe {
 		stduiVector vec;
 		float		vecTime;
 		float	    deqTime;
+		int         vecComp;
 
 		//alg functions
-		stduiVector firstPass(stduiVector &src, int &gSize);
-		stduiVector secondPass(stduiVector &src, int &gSize);
+		void mergeinsertVec(stduiVector &src);
+		void firstPass(stduiVector &src);
+		void fillNew(stduiVector &newSrc, stduiVector &main, stduiVector &pend);
+		int  binarySearch(stduiVector &vec, int value, int searchLimit);
+
+
 
 
         //utils
