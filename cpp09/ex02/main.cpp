@@ -3,11 +3,10 @@
 
 int main(int ac, char **av)
 {
-    //return round((pow(2, k + 1) + pow(-1, k)) / 3);
     try
     {
         if (ac < 2 || ac > 10000)
-            throw std::runtime_error("Come on man...");
+            throw std::runtime_error("Not enough numbers inputted!");
         PmergeMe    merge(&av[1]);
         merge.sortAlg();
     }
