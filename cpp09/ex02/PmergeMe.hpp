@@ -39,22 +39,31 @@ class PmergeMe {
 		float		vecTime;
 		float	    deqTime;
 		int         vecComp;
+		int         deqComp;
 
 		//alg functions
 		void mergeinsertVec(stdiVector &src);
 		void firstPass(stdiVector &src);
 		void fillNew(stdiVector &newSrc, stdiVector &main, stdiVector &pend);
-		int  binarySearch(stdiVector &vec, int value, int searchLimit);
+
+		void firstPassDeq(stdiDeque &src);
+		void mergeinsertDeq(stdiDeque &src);
+		void fillNewDeq(stdiDeque &newSrc, stdiDeque &main, stdiDeque &pend);
 
 		void sortVec(void);
+		void sortDeq(void);
 
         //utils
-        bool is_repeat(int n, stdiVector vec);
+        template<typename container> int binarySearch(container &vec, int value, int searchLimit);
+        template<typename container> int findID(const container &newSrc, int biggerID);
+        template<typename container> void swap(container &src, int og, int dest);
+        template<typename container> bool is_sorted(const container& vec);
+        template<typename container> bool is_repeat(int n, container vec);
+        template <typename container> void printList(const container& vec);
+        int calcJacob(int k);
         bool is_valid(std::string arg);
-        void switchGroups(int from, int to, int gSize, stdiVector &src);
 
 
 };
 
-void printVector(const stdiVector& vec);
 #endif
